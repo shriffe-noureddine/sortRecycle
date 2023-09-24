@@ -1,0 +1,49 @@
+digraph G {
+	Main -> Truck_Scale
+	Truck_Scale -> Drum
+	Drum -> Drum_IronMagnet [label="main size < 6"]
+	Drum -> Drum_WindSifter [label="size < 30"]
+	Drum -> Drum_ManualSorting [label="size >= 30"]
+	Drum_WindSifter -> WindSifter_NIR_PP [label="form = 2D"]
+	Drum_WindSifter -> WindSifter_Ferrous_nonFerrous [label="form = 3D or Tray"]
+	Drum_IronMagnet -> IRON [label="material = Iron"]
+	Drum_IronMagnet -> Aluminium [label="material = Aluminium"]
+	Drum_IronMagnet -> Remains_Middle [label=else]
+	Drum_ManualSorting -> Remains_over [label="form = 3D or Tray"]
+	Drum_ManualSorting -> Foils_PE_and_others [label="form = 2D"]
+	WindSifter_Ferrous_nonFerrous -> IRON [label="material = Iron"]
+	WindSifter_Ferrous_nonFerrous -> Aluminium [label="material = Aluminium"]
+	WindSifter_Ferrous_nonFerrous -> NIR_PET [label=else]
+	WindSifter_NIR_PP -> Foils_PP [label="material = PP"]
+	WindSifter_NIR_PP -> Foils_PE_and_others [label=else]
+	NIR_PET -> Remains_Middle [label="label_size = sz > 50% or color = Carbon-Black"]
+	NIR_PET -> NIR_Transparent [label="material = PET"]
+	NIR_PET -> NIR_PP [label=else]
+	NIR_PP -> PP [label="material = PP"]
+	NIR_PP -> NIR_PE [label=else]
+	NIR_Transparent -> PET_Color [label="label_size = Sleeve"]
+	NIR_Transparent -> PET_Transparent [label="color = Transparent"]
+	NIR_Transparent -> NIR_GREEN_BLUE [label=else]
+	NIR_GREEN_BLUE -> PET_Green_Blue [label="color in {Light Blue (t>Q), Dark Blue (t<Q), Green}"]
+	NIR_GREEN_BLUE -> NIR_Green_Blue_ManualSorting [label=else]
+	NIR_Green_Blue_ManualSorting -> PET_Color [label="form = Tray"]
+	NIR_Green_Blue_ManualSorting -> PET_Trays [label=else]
+	IRON -> Other
+	Aluminium -> Other
+	Remains_over -> Other
+	Foils_PE_and_others -> Other
+	Foils_PP -> Other
+	Remains_Middle -> Other
+	PE -> Other
+	PP -> Other
+	PET_Trays -> Disposal
+	PET_Color -> Energy_rec
+	PET_Green_Blue -> Foam
+	PET_Transparent -> BtB
+	Main [color=red]
+	Truck_Scale [color=red]
+	Drum [color=red]
+	Drum_IronMagnet [color=red]
+	Remains_Middle [color=red]
+	Other [color=red]
+}
